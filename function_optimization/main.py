@@ -3,6 +3,7 @@ from algorithm.algorithm import Algorithm
 from algorithm.search.blind_search import BlindSearch
 from algorithm.search.hill_climbing import HillClimbing
 from algorithm.simulated_annealing import SimulatedAnnealing
+from algorithm.differential_evolution import DifferentialEvolution
 
 from functions.function import Function
 from functions.ackley import Ackley
@@ -44,17 +45,22 @@ def map_algorithm_string_to_class(name) -> Algorithm:
     algorithm_map = {
         'BlindSearch': BlindSearch,
         'HillClimbing': HillClimbing,
-        'SimulatedAnnealing': SimulatedAnnealing
+        'SimulatedAnnealing': SimulatedAnnealing,
+        'DifferentialEvolution': DifferentialEvolution
     }
     return algorithm_map.get(name)
 
 
 @click.command()
-@click.option('--algorithm', type=click.Choice(['BlindSearch', 'HillClimbing', 'SimulatedAnnealing']),
-              default='SimulatedAnnealing', help='Algorithm to use.')
-@click.option('--function', type=click.Choice(['Ackley', 'Sphere', 'Schwefel', 'Rosenbrock', 'Rastrigin', 'Griewank',
-                                               'Levy', 'Michalewicz', 'Zakharov']),
-              default='Ackley', help='Function to run the algorithm on.')
+@click.option('--algorithm',
+              type=click.Choice(['BlindSearch', 'HillClimbing', 'SimulatedAnnealing', 'DifferentialEvolution']),
+              default='DifferentialEvolution',
+              help='Algorithm to use.')
+@click.option('--function',
+              type=click.Choice(['Ackley', 'Sphere', 'Schwefel', 'Rosenbrock', 'Rastrigin', 'Griewank', 'Levy',
+                                 'Michalewicz', 'Zakharov']),
+              default='Ackley',
+              help='Function to run the algorithm on.')
 def main(algorithm, function):
     matplotlib.use('TkAgg')
 
