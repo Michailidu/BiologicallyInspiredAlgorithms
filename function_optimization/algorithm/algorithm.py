@@ -19,7 +19,7 @@ class Algorithm(ABC):
             point.plot(ax)
         if self.best_point is not None:
             self.best_point.plot(ax, highlight=True)
-            plt.suptitle(f'Min: f({self.best_point.x:.2f}, {self.best_point.y:.2f}) = {self.best_point.z:.2f}'
+            plt.suptitle(f'Min: f({self.best_point[0]:.2f}, {self.best_point[1]:.2f}) = {self.best_point[2]:.2f}'
                          f' {self.text}')
 
     def animate(self) -> plt.Axes:
