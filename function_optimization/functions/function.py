@@ -32,6 +32,13 @@ class Function(ABC):
     def scale_y(self) -> float:
         return (self.y_range[1] - self.y_range[0]) / 20
 
+    def move_to_function_range(self, point: Point) -> Point:
+        x = self.x_range[1] if point[0] < self.x_range[0] else point[0]
+        x = self.x_range[0] if x > self.x_range[1] else x
+        y = self.y_range[1] if point[1] < self.y_range[0] else point[1]
+        y = self.y_range[0] if y > self.y_range[1] else y
+        return Point(x, y, self.get_value(x, y))
+
     def plot(self, ax) -> None:
         x_vals = np.linspace(*self.x_range, 100)
         y_vals = np.linspace(*self.y_range, 100)

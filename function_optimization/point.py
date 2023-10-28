@@ -1,4 +1,5 @@
 import matplotlib
+import numpy as np
 
 
 class Point:
@@ -8,8 +9,6 @@ class Point:
     def plot(self, ax: matplotlib.axes.Axes, highlight: bool = False) -> None:
         color = 'red' if highlight else 'black'
         ax.scatter(*self.coordinates, color=color)
-        # ax.scatter(self.x, self.y, self.z, color=color, zorder=1)
-
 
     @property
     def value(self) -> float:
@@ -19,13 +18,29 @@ class Point:
     def dimension(self) -> int:
         return len(self.coordinates)
 
-    def __add__(self, other: 'Point') -> 'Point':
-        if self.dimension != other.dimension:
-            raise ValueError('Dimensions of points are not equal')
-        new_coordinates = []
+    def min(self, min_value: float) -> None:
         for i in range(self.dimension):
-            new_coordinates.append(self.coordinates[i] + other.coordinates[i])
-        return Point(*new_coordinates)
+            if self.coordinates[i] < min_value:
+                self.coordinates[i] = min_value
+
+    def max(self, max_value: float) -> None:
+        for i in range(self.dimension):
+            if self.coordinates[i] > max_value:
+                self.coordinates[i] = max_value
+
+    def __add__(self, other) -> 'Point':
+        if isinstance(other, float) or isinstance(other, int):
+            return self + Point(*[other for _ in range(self.dimension)])
+        if isinstance(other, np.ndarray):
+            return self + Point(*other)
+        if isinstance(other, Point):
+            if self.dimension != other.dimension:
+                raise ValueError('Dimensions of points are not equal')
+            new_coordinates = []
+            for i in range(self.dimension):
+                new_coordinates.append(self.coordinates[i] + other.coordinates[i])
+            return Point(*new_coordinates)
+        raise TypeError('Unsupported type for addition')
 
     def __sub__(self, other: 'Point') -> 'Point':
         if self.dimension != other.dimension:

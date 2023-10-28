@@ -4,6 +4,7 @@ from algorithm.search.blind_search import BlindSearch
 from algorithm.search.hill_climbing import HillClimbing
 from algorithm.simulated_annealing import SimulatedAnnealing
 from algorithm.differential_evolution import DifferentialEvolution
+from algorithm.particle_swarm import ParticleSwarm
 
 from functions.function import Function
 from functions.ackley import Ackley
@@ -46,15 +47,20 @@ def map_algorithm_string_to_class(name) -> Algorithm:
         'BlindSearch': BlindSearch,
         'HillClimbing': HillClimbing,
         'SimulatedAnnealing': SimulatedAnnealing,
-        'DifferentialEvolution': DifferentialEvolution
+        'DifferentialEvolution': DifferentialEvolution,
+        'ParticleSwarm': ParticleSwarm
     }
     return algorithm_map.get(name)
 
 
 @click.command()
 @click.option('--algorithm',
-              type=click.Choice(['BlindSearch', 'HillClimbing', 'SimulatedAnnealing', 'DifferentialEvolution']),
-              default='DifferentialEvolution',
+              type=click.Choice(['BlindSearch',
+                                 'HillClimbing',
+                                 'SimulatedAnnealing',
+                                 'DifferentialEvolution',
+                                 'ParticleSwarm']),
+              default='ParticleSwarm',
               help='Algorithm to use.')
 @click.option('--function',
               type=click.Choice(['Ackley', 'Sphere', 'Schwefel', 'Rosenbrock', 'Rastrigin', 'Griewank', 'Levy',
@@ -67,7 +73,7 @@ def main(algorithm, function):
     function = map_function_string_to_class(function)()
     algorithm = map_algorithm_string_to_class(algorithm)(function)
 
-    animation = Animation(100, update_function(algorithm))
+    animation = Animation(10, update_function(algorithm))
     animation.animate()
 
 
