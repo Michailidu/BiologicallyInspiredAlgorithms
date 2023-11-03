@@ -5,6 +5,7 @@ from algorithm.search.hill_climbing import HillClimbing
 from algorithm.simulated_annealing import SimulatedAnnealing
 from algorithm.differential_evolution import DifferentialEvolution
 from algorithm.particle_swarm import ParticleSwarm
+from algorithm.SOMA import SOMA
 
 from functions.function import Function
 from functions.ackley import Ackley
@@ -48,7 +49,8 @@ def map_algorithm_string_to_class(name) -> Algorithm:
         'HillClimbing': HillClimbing,
         'SimulatedAnnealing': SimulatedAnnealing,
         'DifferentialEvolution': DifferentialEvolution,
-        'ParticleSwarm': ParticleSwarm
+        'ParticleSwarm': ParticleSwarm,
+        'SOMA': SOMA
     }
     return algorithm_map.get(name)
 
@@ -59,8 +61,9 @@ def map_algorithm_string_to_class(name) -> Algorithm:
                                  'HillClimbing',
                                  'SimulatedAnnealing',
                                  'DifferentialEvolution',
-                                 'ParticleSwarm']),
-              default='ParticleSwarm',
+                                 'ParticleSwarm',
+                                 'SOMA']),
+              default='SOMA',
               help='Algorithm to use.')
 @click.option('--function',
               type=click.Choice(['Ackley', 'Sphere', 'Schwefel', 'Rosenbrock', 'Rastrigin', 'Griewank', 'Levy',

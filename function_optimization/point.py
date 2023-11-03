@@ -28,7 +28,7 @@ class Point:
             if self.coordinates[i] > max_value:
                 self.coordinates[i] = max_value
 
-    def __add__(self, other) -> 'Point':
+    def __add__(self, other: any) -> 'Point':
         if isinstance(other, float) or isinstance(other, int):
             return self + Point(*[other for _ in range(self.dimension)])
         if isinstance(other, np.ndarray):
@@ -50,11 +50,19 @@ class Point:
             new_coordinates.append(self.coordinates[i] - other.coordinates[i])
         return Point(*new_coordinates)
 
-    def __mul__(self, other: float) -> 'Point':
+    def __mul__(self, other: any) -> 'Point':
         new_coordinates = []
-        for i in range(self.dimension):
-            new_coordinates.append(self.coordinates[i] * other)
-        return Point(*new_coordinates)
+        if isinstance(other, Point):
+            if self.dimension != other.dimension:
+                raise ValueError('Dimensions of points are not equal')
+            for i in range(self.dimension):
+                new_coordinates.append(self.coordinates[i] * other.coordinates[i])
+            return Point(*new_coordinates)
+        if isinstance(other, float) or isinstance(other, int):
+            for i in range(self.dimension):
+                new_coordinates.append(self.coordinates[i] * other)
+            return Point(*new_coordinates)
+        raise TypeError('Unsupported type for multiplication')
 
     def __getitem__(self, item):
         if item < 0 or item >= self.dimension:
