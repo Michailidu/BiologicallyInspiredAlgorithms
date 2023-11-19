@@ -1,7 +1,7 @@
 import click
 
 from cities import cities as all_cities
-from travelling_salesman import genetic_travelling_salesman
+from algorithm.genetic import genetic_travelling_salesman
 
 
 @click.command()
