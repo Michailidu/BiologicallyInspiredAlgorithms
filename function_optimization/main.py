@@ -6,6 +6,7 @@ from algorithm.simulated_annealing import SimulatedAnnealing
 from algorithm.differential_evolution import DifferentialEvolution
 from algorithm.particle_swarm import ParticleSwarm
 from algorithm.SOMA import SOMA
+from algorithm.firefly import FireflyAlgorithm
 
 from functions.function import Function
 from functions.ackley import Ackley
@@ -50,7 +51,8 @@ def map_algorithm_string_to_class(name) -> Algorithm:
         'SimulatedAnnealing': SimulatedAnnealing,
         'DifferentialEvolution': DifferentialEvolution,
         'ParticleSwarm': ParticleSwarm,
-        'SOMA': SOMA
+        'SOMA': SOMA,
+        'Firefly': FireflyAlgorithm
     }
     return algorithm_map.get(name)
 
@@ -62,8 +64,9 @@ def map_algorithm_string_to_class(name) -> Algorithm:
                                  'SimulatedAnnealing',
                                  'DifferentialEvolution',
                                  'ParticleSwarm',
-                                 'SOMA']),
-              default='SOMA',
+                                 'SOMA',
+                                 'Firefly']),
+              default='Firefly',
               help='Algorithm to use.')
 @click.option('--function',
               type=click.Choice(['Ackley', 'Sphere', 'Schwefel', 'Rosenbrock', 'Rastrigin', 'Griewank', 'Levy',

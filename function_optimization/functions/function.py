@@ -64,3 +64,6 @@ class Function(ABC):
         while y is None or y < self.y_range[0] or y > self.y_range[1]:
             y = np.random.normal(loc=point.y, scale=self.scale_y)
         return Point(x, y, self.get_value(x, y))
+
+    def get_evaluated(self, point: Point) -> Point:
+        return Point(*point.coordinates, self.get_value(*point.coordinates))

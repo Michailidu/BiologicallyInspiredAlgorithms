@@ -28,6 +28,12 @@ class Point:
             if self.coordinates[i] > max_value:
                 self.coordinates[i] = max_value
 
+    def distance(self, other: 'Point') -> float:
+        if self.dimension != other.dimension:
+            raise ValueError('Dimensions of points are not equal')
+        squared_distance = sum((self.coordinates[i] - other.coordinates[i]) ** 2 for i in range(self.dimension))
+        return squared_distance ** 0.5
+
     def __add__(self, other: any) -> 'Point':
         if isinstance(other, float) or isinstance(other, int):
             return self + Point(*[other for _ in range(self.dimension)])
