@@ -2,6 +2,7 @@ import click
 
 from cities import cities as all_cities
 from algorithm.genetic import genetic_travelling_salesman
+from algorithm.ant_colony import ant_colony
 
 
 @click.command()
@@ -11,7 +12,7 @@ from algorithm.genetic import genetic_travelling_salesman
 @click.option('--number_of_individuals', default=20, help='Number of individuals in population.')
 @click.option('--plot', default=True, help='Plot the algorithm progress.')
 def main(**kwargs) -> None:
-    best_route = genetic_travelling_salesman(**kwargs)
+    best_route = ant_colony(**kwargs)
     print(f'Best route: {best_route.route}')
     print(f'Distance: {best_route.distance}')
 
