@@ -7,7 +7,7 @@ import numpy as np
 class SOMA(Algorithm):
     def __init__(self,
                  function: Function,
-                 population_size: int = 10,
+                 population_size: int = 5,
                  prt: float = 0.4,
                  path_length: float = 3.0,
                  step_size: float = 0.11,
@@ -37,9 +37,6 @@ class SOMA(Algorithm):
                 if np.random.uniform() < self.prt:
                     prt_vector[i] = 1
         return prt_vector
-
-    def get_new_point(self, individual: Point) -> Point:
-        pass
 
     def check_leader(self, individual: Point) -> Point:
         best_point = individual
