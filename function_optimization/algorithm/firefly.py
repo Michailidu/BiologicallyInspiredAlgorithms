@@ -12,14 +12,6 @@ class Firefly:
             self.point = Point(point[0], point[1])
         self.attractiveness = 1
 
-    def light_intensity(self, other_firefly: 'Firefly', function: Function) -> float:
-        gamma = 3
-        distance = self.point.distance(other_firefly.point)
-        light_intensity_0 = function.get_value(*self.point.coordinates)
-        if distance == 0:
-            return light_intensity_0
-        return light_intensity_0 * np.exp(-gamma * distance)
-
     def value(self, function: Function) -> float:
         return function.get_value(*self.point.coordinates)
 
