@@ -35,11 +35,13 @@ class FireflyAlgorithm(Algorithm):
         self.found_points = [self.function.get_evaluated(firefly.point) for firefly in self.population]
 
     def initialize_population(self) -> None:
+        """Initialize population with random points."""
         self.population = [Firefly(self.function.get_random_point()) for _ in range(self.population_size)]
         self.set_found_points()
         self.set_best_point()
 
     def move_firefly(self, firefly: Firefly, other_firefly: Firefly) -> Firefly:
+        """Move firefly towards other firefly. Movement is calculated using attractiveness and random vector."""
         alpha = 0.3
         attractiveness = other_firefly.attractiveness / (1 + firefly.point.distance(other_firefly.point))
         direction = other_firefly.point - firefly.point
@@ -51,6 +53,7 @@ class FireflyAlgorithm(Algorithm):
         return new_firefly
 
     def move_firefly_randomly(self, firefly: Firefly) -> Firefly:
+        """Move firefly randomly. Returns the new position only if it is better than the old one."""
         direction = Point(np.random.uniform(-1, 1), np.random.uniform(-1, 1))
         new_position = firefly.point + direction
         new_position = self.function.move_to_function_range(new_position)
@@ -61,6 +64,7 @@ class FireflyAlgorithm(Algorithm):
             return firefly
 
     def generate_next_solutions(self) -> None:
+        """Generate next generation of solutions."""
         if self.generation_number == 0:
             self.generation_number += 1
             return
