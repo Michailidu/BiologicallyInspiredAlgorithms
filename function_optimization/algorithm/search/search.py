@@ -6,7 +6,7 @@ from point import Point
 
 
 class Search(Algorithm):
-    def __init__(self, function: Function, step_size: int):
+    def __init__(self, function: Function, step_size: int = 1):
         self.step_size = step_size
         super().__init__(function)
 
@@ -25,7 +25,7 @@ class Search(Algorithm):
                 best_point_from_solutions = point
 
         # compare the previously found best solution with the current best solution and update if necessary
-        if best_point_from_solutions.z < self.best_point.z:
+        if best_point_from_solutions.value < self.best_point.value:
             self.best_point = best_point_from_solutions
 
     @abstractmethod

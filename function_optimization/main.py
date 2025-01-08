@@ -29,32 +29,32 @@ def update_function(algorithm: Algorithm):
     return update
 
 
-def map_function_string_to_class(name) -> Function:
-    function_map = {
-        'Ackley': Ackley,
-        'Sphere': Sphere,
-        'Schwefel': Schwefel,
-        'Rosenbrock': Rosenbrock,
-        'Rastrigin': Rastrigin,
-        'Griewank': Griewank,
-        'Levy': Levy,
-        'Michalewicz': Michalewicz,
-        'Zakharov': Zakharov
-    }
-    return function_map.get(name)
+function_map = {
+    'Ackley': Ackley,
+    'Sphere': Sphere,
+    'Schwefel': Schwefel,
+    'Rosenbrock': Rosenbrock,
+    'Rastrigin': Rastrigin,
+    'Griewank': Griewank,
+    'Levy': Levy,
+    'Michalewicz': Michalewicz,
+    'Zakharov': Zakharov
+}
 
 
-def map_algorithm_string_to_class(name) -> Algorithm:
-    algorithm_map = {
-        'BlindSearch': BlindSearch,
-        'HillClimbing': HillClimbing,
-        'SimulatedAnnealing': SimulatedAnnealing,
-        'DifferentialEvolution': DifferentialEvolution,
-        'ParticleSwarm': ParticleSwarm,
-        'SOMA': SOMA,
-        'Firefly': FireflyAlgorithm
-    }
-    return algorithm_map.get(name)
+algorithm_map = {
+    'BlindSearch': BlindSearch,
+    'HillClimbing': HillClimbing,
+    'SimulatedAnnealing': SimulatedAnnealing,
+    'DifferentialEvolution': DifferentialEvolution,
+    'ParticleSwarm': ParticleSwarm,
+    'SOMA': SOMA,
+    'Firefly': FireflyAlgorithm
+}
+
+
+def map_string_to_class(name, class_map) -> callable:
+    return class_map.get(name)
 
 
 @click.command()
@@ -76,10 +76,10 @@ def map_algorithm_string_to_class(name) -> Algorithm:
 def main(algorithm, function):
     matplotlib.use('TkAgg')
 
-    function = map_function_string_to_class(function)()
-    algorithm = map_algorithm_string_to_class(algorithm)(function)
+    function = map_string_to_class(function, function_map)()
+    algorithm = map_string_to_class(algorithm, algorithm_map)(function)
 
-    animation = Animation(10, update_function(algorithm))
+    animation = Animation(100, update_function(algorithm))
     animation.animate()
 
 

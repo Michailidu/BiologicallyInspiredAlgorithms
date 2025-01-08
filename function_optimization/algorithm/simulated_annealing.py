@@ -18,10 +18,10 @@ class SimulatedAnnealing(Algorithm):
             return
         neighbour = self.function.get_neighbour(self.best_point)
         self.found_points.append(neighbour)
-        if neighbour.z < self.best_point.z:
+        if neighbour.value < self.best_point.value:
             self.best_point = neighbour
         else:
-            probability = np.exp(-(neighbour.z - self.best_point.z) / self.temperature)
+            probability = np.exp(-(neighbour.value - self.best_point.value) / self.temperature)
             if np.random.rand() < probability:
                 self.best_point = neighbour
         self.temperature *= 1 - self.cooling_rate

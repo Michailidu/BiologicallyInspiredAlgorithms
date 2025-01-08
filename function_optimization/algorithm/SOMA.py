@@ -60,6 +60,9 @@ class SOMA(Algorithm):
                 self.best_point = individual
 
     def generate_next_solutions(self) -> None:
+        if self.generation_number == 0:
+            self.generation_number += 1
+            return
         if self.generation_number >= self.max_iterations:
             return
         new_population = []

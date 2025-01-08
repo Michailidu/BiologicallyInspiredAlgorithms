@@ -59,10 +59,10 @@ class Function(ABC):
     def get_neighbour(self, point: Point) -> Point:
         x = None
         while x is None or x < self.x_range[0] or x > self.x_range[1]:
-            x = np.random.normal(loc=point.x, scale=self.scale_x)
+            x = np.random.normal(loc=point[0], scale=self.scale_x)
         y = None
         while y is None or y < self.y_range[0] or y > self.y_range[1]:
-            y = np.random.normal(loc=point.y, scale=self.scale_y)
+            y = np.random.normal(loc=point[1], scale=self.scale_y)
         return Point(x, y, self.get_value(x, y))
 
     def get_evaluated(self, point: Point) -> Point:
