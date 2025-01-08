@@ -30,6 +30,8 @@ The repository contains two categories of algorithms:
 
 
 ### 3D Function Optimization Algorithms
+![3D Function Optimization](img/function_optimization.png)
+
 To run the 3D function optimization algorithms, execute the following command:
 ```bash
 python function_optimization/main.py --algorithm <algorithm> --function <function>
@@ -61,6 +63,8 @@ python function_optimization/main.py --help
 ```
 
 ### Shortest Path Search Algorithms
+![Shortest Path Search](img/shortest_path.png)
+
 To see the shortest path search parameters, execute the following command:
 ```bash
 python shortest_path/main.py --help 
